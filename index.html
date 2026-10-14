@@ -422,6 +422,47 @@
   .modal-actions{position:relative;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
   .modal .ui-btn{min-height:50px}
 
+  /* ---------- creditos ---------- */
+  .modal-card.credits{width:min(640px,100%);text-align:left;max-height:calc(100vh - 44px);overflow-y:auto;overscroll-behavior:contain;padding:26px 24px}
+  .modal-card.credits::before{top:-190px}
+  .credits-head{position:relative;display:flex;align-items:center;gap:14px}
+  .credits-head img{width:64px;height:64px;border-radius:19px;object-fit:cover;border:4px solid #fff;flex:0 0 auto;box-shadow:0 10px 22px rgba(0,0,0,.16),0 0 0 3px rgba(166,233,127,.5)}
+  .modal-card.credits h2{margin:0;font-size:clamp(1.4rem,3.6vw,1.78rem);text-align:left}
+  .credits-sub{margin-top:3px;color:#6b7c6e;font-weight:800;font-size:.84rem;line-height:1.35}
+  .credits-block{position:relative;margin-top:15px;padding:16px 18px;border-radius:20px;background:linear-gradient(180deg,#fff,#eef8e6);border:1px solid #e0ecd9}
+  .credits-block h5{margin:0 0 11px;font-size:.68rem;letter-spacing:.17em;text-transform:uppercase;color:#2f7a52;font-weight:900}
+  .credits-org{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+  .credits-org li{position:relative;padding-left:17px;color:#1d4433;font-weight:800;font-size:.95rem;line-height:1.35}
+  .credits-org li::before{content:'';position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(87,201,110,.18)}
+  .credits-org li em{display:block;margin-top:3px;font-style:normal;font-weight:700;font-size:.81rem;color:#6e8077}
+  .credits-person{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px dashed #dceacf}
+  .credits-person:first-of-type{border-top:0;padding-top:0}
+  .credits-person:last-of-type{padding-bottom:0}
+  .credits-person i{
+    flex:0 0 auto;width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:.78rem;
+    background:linear-gradient(140deg,var(--green),var(--green-2));color:#0d2c1e;box-shadow:0 7px 16px rgba(70,170,84,.3),inset 0 1px 0 rgba(255,255,255,.5);
+  }
+  .credits-person b{display:block;color:#1d4433;font-weight:900;font-size:.95rem;line-height:1.3}
+  .credits-person small{display:block;margin-top:2px;color:#6e8077;font-weight:700;font-size:.79rem}
+  .credits-foot{margin:16px 0 18px;color:#78877e;font-weight:700;font-size:.79rem;line-height:1.55;text-align:center}
+  .credits-foot b{display:block;margin-top:6px;color:#4f6459;letter-spacing:.02em}
+
+  /* ---------- rodape ---------- */
+  .site-foot{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px;padding:16px 20px;border-radius:26px;
+    background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.045));border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
+  }
+  .site-foot .foot-text{min-width:0}
+  .site-foot strong{display:block;margin-bottom:5px;font-size:.67rem;letter-spacing:.17em;text-transform:uppercase;color:#d8f6c4;font-weight:900}
+  .site-foot span{display:block;color:rgba(238,250,240,.74);font-weight:700;font-size:.89rem;line-height:1.45}
+  @media (max-width:620px){
+    .site-foot{flex-direction:column;align-items:stretch;text-align:left}
+    .site-foot .btn{width:100%}
+    .modal-card.credits{padding:22px 18px}
+    .credits-block{padding:14px 15px}
+  }
+
   .confetti{position:fixed;width:11px;height:16px;border-radius:3px;top:-24px;left:0;z-index:140;pointer-events:none;animation:fall linear forwards}
   @keyframes fall{to{transform:translate3d(var(--x),112vh,0) rotate(var(--spin,720deg));opacity:.9}}
 
@@ -567,6 +608,7 @@
         <button class="btn btn-primary" id="heroStartBtn">🎮 Novo jogo</button>
         <button class="btn btn-outline" id="heroPeekBtn">👀 Espiar 3s</button>
         <button class="btn btn-outline" id="heroHelpBtn">💡 Como jogar</button>
+        <button class="btn btn-outline" id="heroCreditsBtn">ℹ️ Créditos</button>
       </div>
     </div>
     <aside class="hero-side glass">
@@ -654,6 +696,14 @@
       </aside>
     </div>
   </section>
+
+  <footer class="site-foot">
+    <div class="foot-text">
+      <strong>Realização</strong>
+      <span>FIEMS • Centro de Sustentabilidade da Indústria — CSI • Gerência de Sustentabilidade</span>
+    </div>
+    <button class="btn btn-outline" id="footCreditsBtn">ℹ️ Ver créditos</button>
+  </footer>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -671,6 +721,60 @@
     <div class="modal-actions">
       <button class="btn btn-primary" id="playAgainBtn">🎮 Jogar novamente</button>
       <button class="ui-btn" id="closeModalBtn">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="creditsModal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
+  <div class="modal-card credits">
+    <div class="credits-head">
+      <img id="creditsLogo" alt="Mascote Eva">
+      <div>
+        <h2 id="creditsTitle">Créditos</h2>
+        <div class="credits-sub">Jogo da Memória da Eva • Educação ambiental</div>
+      </div>
+    </div>
+
+    <div class="credits-block">
+      <h5>Realização</h5>
+      <ul class="credits-org">
+        <li>Federação das Indústrias do Estado de Mato Grosso do Sul<em>FIEMS</em></li>
+        <li>Centro de Sustentabilidade da Indústria<em>CSI</em></li>
+        <li>Gerência de Sustentabilidade</li>
+      </ul>
+    </div>
+
+    <div class="credits-block">
+      <h5>Coordenação</h5>
+      <div class="credits-person">
+        <i aria-hidden="true">CMB</i>
+        <div>
+          <b>Claudia Moreira Borges</b>
+          <small>Gerente de Sustentabilidade</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="credits-block">
+      <h5>Equipe Técnica Responsável</h5>
+      <div class="credits-person">
+        <i aria-hidden="true">MRL</i>
+        <div><b>Muriele Rodrigues de Lima</b></div>
+      </div>
+      <div class="credits-person">
+        <i aria-hidden="true">JLP</i>
+        <div><b>João Lucas Bueno da Silva Pinheiro</b></div>
+      </div>
+    </div>
+
+    <p class="credits-foot">
+      Recurso lúdico-pedagógico desenvolvido para ações de sensibilização sobre reciclagem,
+      consumo consciente e sustentabilidade na indústria.
+      <b>© 2026 FIEMS — Centro de Sustentabilidade da Indústria</b>
+    </p>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="closeCreditsBtn">Fechar</button>
     </div>
   </div>
 </div>
@@ -1459,6 +1563,37 @@ volumeRange.addEventListener('change', () => audio.flip());
 
 closeModalBtn.addEventListener('click', () => winModal.classList.remove('show'));
 
+/* =========================================================
+   Creditos institucionais
+   ========================================================= */
+const creditsModal = document.getElementById('creditsModal');
+const closeCreditsBtn = document.getElementById('closeCreditsBtn');
+const creditsLogo = document.getElementById('creditsLogo');
+const brandBadgeImg = document.querySelector('.brand-badge img');
+if (creditsLogo && brandBadgeImg) creditsLogo.src = brandBadgeImg.src;
+
+let creditsOpener = null;
+
+function openCredits() {
+  creditsOpener = document.activeElement;
+  winModal.classList.remove('show');
+  creditsModal.classList.add('show');
+  audio.flip();
+  closeCreditsBtn.focus({ preventScroll: true });
+}
+
+function closeCredits() {
+  if (!creditsModal.classList.contains('show')) return;
+  creditsModal.classList.remove('show');
+  if (creditsOpener && typeof creditsOpener.focus === 'function') creditsOpener.focus({ preventScroll: true });
+  creditsOpener = null;
+}
+
+[document.getElementById('heroCreditsBtn'), document.getElementById('footCreditsBtn')]
+  .forEach(btn => btn && btn.addEventListener('click', openCredits));
+closeCreditsBtn.addEventListener('click', closeCredits);
+creditsModal.addEventListener('click', e => { if (e.target === creditsModal) closeCredits(); });
+
 [peekBtn, heroPeekBtn].forEach(btn => btn.addEventListener('click', peekCards));
 [helpBtn, heroHelpBtn].forEach(btn => btn.addEventListener('click', showHelp));
 fullscreenBtn.addEventListener('click', toggleFullscreenGame);
@@ -1473,12 +1608,13 @@ document.addEventListener('keydown', e => {
   const tag = ((e.target && e.target.tagName) || '').toLowerCase();
   if (tag === 'input' || tag === 'textarea') return;
   const k = e.key.toLowerCase();
-  if (e.key === 'Escape') { winModal.classList.remove('show'); return; }
+  if (e.key === 'Escape') { closeCredits(); winModal.classList.remove('show'); return; }
   if (k === 'n') { winModal.classList.remove('show'); resetGame(); showToast('Novo jogo iniciado 🎮', 'good'); }
   else if (k === 'e') peekCards();
   else if (k === 'm') applySoundState(!soundOn);
   else if (k === 'f') toggleFullscreenGame();
   else if (k === 'h') showHelp();
+  else if (k === 'c') { creditsModal.classList.contains('show') ? closeCredits() : openCredits(); }
 });
 
 /* preferencias salvas */
